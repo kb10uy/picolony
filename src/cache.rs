@@ -1,6 +1,6 @@
 use core::fmt::Debug;
 
-use hash32::Hash;
+use core::hash::Hash;
 use heapless::FnvIndexMap;
 
 pub struct SimpleCacheMap<K, V, const SIZE: usize> {

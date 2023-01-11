@@ -1,3 +1,4 @@
+use fugit::RateExtU32;
 use rp_pico as bsp;
 
 use bsp::{
@@ -12,7 +13,6 @@ use bsp::{
     pac::RESETS,
 };
 use cortex_m::prelude::*;
-use embedded_time::rate::Baud;
 use nb::Error as NbError;
 
 /// Alias the type for our UART to make things clearer.
@@ -27,7 +27,7 @@ pub fn initialize<D: UartDevice, P: ValidUartPinout<D>>(
     baud: u32,
 ) -> Result<UartPeripheral<D, P>, UartError> {
     let mut config = UartConfig::default();
-    config.baudrate = Baud(baud);
+    config.baudrate = baud.Hz();
 
     let uart =
         RawUart::new(target_device, pins, resets).enable(config, clocks.peripheral_clock.freq())?;
